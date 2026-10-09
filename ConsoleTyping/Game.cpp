@@ -19,6 +19,10 @@
 #include "SpriteComponent.h"
 #include "Font.h"
 #include "Keyboard.h"
+#include "ProblemSet.h"
+#include "ScoreBoard.h"
+#include "WordFilter.h"
+#include "WindowIme.h"
 #include "MainMenuScene.h"
 #include "RankingScene.h"
 #include "TypingScene.h"
@@ -116,6 +120,9 @@ bool Game::Initialize()
 	// Create quad for drawing sprites
 	CreateSpriteVerts();
 
+	DisableIme(mWindow);
+	LoadGameData();
+
 	if (!CreateBuiltinTextures())
 	{
 		SDL_Log("Failed to create builtin textures.");
@@ -139,8 +146,31 @@ void Game::RunLoop()
 	}
 }
 
+void Game::LoadGameData()
+{
+	std::vector<std::string> warnings;
+	ProblemSet::getIns()->Load(mBasePath + "problems.txt", &warnings);
+	if (!WordFilter::getIns()->Load(mBasePath + "ng-words.txt"))
+	{
+		warnings.push_back("ng-words.txt not found; no words are blocked");
+	}
+	std::string scoreMessage;
+	ScoreBoard::getIns()->Load(mBasePath + "scores.json", &scoreMessage);
+	if (!scoreMessage.empty())
+	{
+		warnings.push_back(scoreMessage);
+	}
+
+	for (const std::string& warning : warnings)
+	{
+		SDL_Log("%s", warning.c_str());
+	}
+}
+
 void Game::ProcessInput()
 {
+	Keyboard::getIns()->BeginFrame();
+
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
@@ -150,6 +180,11 @@ void Game::ProcessInput()
 				mIsRunning = false;
 				break;
 			case SDL_KEYDOWN:
+				// キーリピートは無視して、押した瞬間だけをシーンへ渡す
+				if (event.key.repeat == 0)
+				{
+					Keyboard::getIns()->OnKeyDown(event.key.keysym.scancode);
+				}
 				// Alt+Enter でフルスクリーンとウィンドウを切り替える
 				if (event.key.repeat == 0
 					&& event.key.keysym.sym == SDLK_RETURN

@@ -6,6 +6,19 @@ Keyboard::Keyboard()
 	mReleasingCount.fill(0);
 }
 
+void Keyboard::BeginFrame()
+{
+	mKeyDowns.clear();
+}
+
+void Keyboard::OnKeyDown(int scancode)
+{
+	if (isAvailableCode(scancode))
+	{
+		mKeyDowns.push_back(scancode);
+	}
+}
+
 void Keyboard::Update()
 {
 	const Uint8* keyState = SDL_GetKeyboardState(nullptr);
