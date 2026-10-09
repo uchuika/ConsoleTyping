@@ -17,6 +17,9 @@ public:
 	// UTF-8 文字列を白で描画したテクスチャを作る (呼び出し側が Unload/delete する)
 	class Texture* RenderText(const std::string& utf8Text, int pointSize);
 
+	// 描画したときの幅 (ピクセル)。開けなければ 0
+	int GetTextWidth(const std::string& utf8Text, int pointSize);
+
 private:
 	TTF_Font* GetFontData(int pointSize);
 

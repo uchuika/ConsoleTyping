@@ -29,4 +29,10 @@ namespace Palette
 	static const Vector3 TextDark = Hex(0x4a4a4a);
 	static const Vector3 SelectBg = Hex(0x222222);
 	static const Vector3 SelectLine = Hex(0x333333);
+	static const Vector3 Orange = Hex(0xe5a559);
+	static const Vector3 Blue = Hex(0x6b8cff);
+	static const Vector3 Lime = Hex(0xa6d56b);
+	static const Vector3 CursorBg = Hex(0x1f3a52);
+	static const Vector3 Red = Hex(0xff6b6b);
+	static const Vector3 OrangeLine = Hex(0x5a4326);
 }

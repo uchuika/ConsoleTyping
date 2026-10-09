@@ -22,6 +22,10 @@ public:
 	// SDL_PollEvent の後にフレームごとに1回呼ぶ
 	void Update();
 
+	// タイピングで受け付ける文字 (a-z、0-9、-) に対応する scancode ならその文字、それ以外は 0。
+	// Shift などの修飾キーは scancode が別なので 0 になり、自然に無視される
+	static char ToChar(int scancode);
+
 	// scancode のキーが押されているフレーム数を取得 (押した瞬間は 1)
 	int GetPressingCount(int scancode) const;
 	// scancode のキーが離されているフレーム数を取得

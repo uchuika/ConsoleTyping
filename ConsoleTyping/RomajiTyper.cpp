@@ -156,6 +156,19 @@ namespace
 		return true;
 	}
 
+	// 次の音の打ち方がすべて n で始まるか (な行)
+	bool StartsWithN(const Candidates& next)
+	{
+		for (const std::string& c : next)
+		{
+			if (c.empty() || c[0] != 'n')
+			{
+				return false;
+			}
+		}
+		return !next.empty();
+	}
+
 	struct Token
 	{
 		std::string kana;
@@ -228,7 +241,21 @@ bool RomajiTyper::BuildUnits(const std::string& reading, std::vector<Unit>& unit
 		unit.spaceAfter = token.spaceAfter;
 		unit.isN = false;
 
-		if (token.kana == u8"ん")
+		if (token.kana == u8"ん" && next && !next->isN && StartsWithN(next->candidates))
+		{
+			// 次の音が な行 のとき、「ん」は n 1 文字でも打てる (konnichiha)。
+			// 後ろの音と合体させて、nn + ni の途中の n がどちらのものか迷わないようにする
+			for (const char* prefix : { "n", "nn", "xn" })
+			{
+				for (const std::string& cand : next->candidates)
+				{
+					unit.candidates.push_back(prefix + cand);
+				}
+			}
+			unit.spaceAfter = next->spaceAfter;
+			reversed.pop_back();
+		}
+		else if (token.kana == u8"ん")
 		{
 			if (next && NextAllowsSingleN(next->candidates))
 			{

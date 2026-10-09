@@ -20,17 +20,24 @@ AbstractScene::AbstractScene(IOnSceneChangedListener* impl, const Parameter& par
 ,mBoldFont(game->GetFont(FontBold))
 {
 	mFrameTitle = AddText(u8"TYPE://TERMINAL", 18, true);
-	mFrameRight = AddText(u8"文化祭展示  ·  local", 15);
+	mFrameRight = nullptr;
 
-	const char* footer[][2] = {
+	SetFrameInfo(u8"文化祭展示  ·  local", {
 		{ u8"↑↓", u8"選択" },
 		{ u8"Enter", u8"決定" },
 		{ u8"Esc", u8"戻る" },
 		{ u8"Alt+Enter", u8"全画面 / ウィンドウ" },
-	};
-	for (auto& item : footer)
+	});
+}
+
+void AbstractScene::SetFrameInfo(const std::string& rightLabel,
+	const std::vector<std::pair<std::string, std::string>>& footer)
+{
+	mFrameRight = AddText(rightLabel, 15);
+	mFooter.clear();
+	for (const auto& item : footer)
 	{
-		mFooter.emplace_back(AddText(item[0], 16), AddText(item[1], 16));
+		mFooter.emplace_back(AddText(item.first, 16), AddText(item.second, 16));
 	}
 }
 
