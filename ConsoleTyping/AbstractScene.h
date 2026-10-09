@@ -32,6 +32,10 @@ protected:
 	// Enter で決定した瞬間か (Alt+Enter は含まない)
 	bool IsConfirmPressed() const;
 
+	// 外枠の右上のラベルとフッター (キー, 説明の組) を設定する。省略するとメニュー用の既定値
+	void SetFrameInfo(const std::string& rightLabel,
+		const std::vector<std::pair<std::string, std::string>>& footer);
+
 	// 全シーン共通のウィンドウ風の外枠 (タイトルバーと操作説明のフッター)
 	void DrawTerminalFrame(class Shader* shader) const;
 

@@ -100,7 +100,13 @@ int main()
 	Check(TypesAll(u8"こんいん", "konninn"), "konninn");
 	Check(MissesAtLast(u8"こんあ", "kona"), "kona: n before a must be doubled");
 	Check(TypesAll(u8"こんにちは", "konnnichiha"), "konnnichiha");
-	Check(MissesAtLast(u8"こんにちは", "konni"), "n before ni: a single n must not skip the n of ni");
+	Check(TypesAll(u8"こんにちは", "konnichiha"), "konnichiha: n + ni");
+	Check(MissesAtLast(u8"こんにちは", "koni"), "koni: a single n is not enough for n + ni");
+	Check(TypesAll(u8"こんな", "konna"), "konna");
+	Check(TypesAll(u8"こんな", "konnna"), "konnna");
+	Check(TypesAll(u8"こんな", "koxnna"), "koxnna");
+	Check(TypesAll(u8"じゅんばんに", "junbannni"), "junbannni");
+	Check(TypesAll(u8"じゅんばんに", "junbanni"), "junbanni (the display route)");
 	Check(TypesAll(u8"こんや", "konnya"), "konnya");
 
 	// 「っ」

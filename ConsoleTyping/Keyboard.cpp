@@ -6,6 +6,27 @@ Keyboard::Keyboard()
 	mReleasingCount.fill(0);
 }
 
+char Keyboard::ToChar(int scancode)
+{
+	if (scancode >= SDL_SCANCODE_A && scancode <= SDL_SCANCODE_Z)
+	{
+		return static_cast<char>('a' + (scancode - SDL_SCANCODE_A));
+	}
+	if (scancode >= SDL_SCANCODE_1 && scancode <= SDL_SCANCODE_9)
+	{
+		return static_cast<char>('1' + (scancode - SDL_SCANCODE_1));
+	}
+	if (scancode == SDL_SCANCODE_0)
+	{
+		return '0';
+	}
+	if (scancode == SDL_SCANCODE_MINUS)
+	{
+		return '-';
+	}
+	return 0;
+}
+
 void Keyboard::BeginFrame()
 {
 	mKeyDowns.clear();

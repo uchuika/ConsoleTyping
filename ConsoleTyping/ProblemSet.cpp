@@ -5,6 +5,9 @@
 
 namespace
 {
+	// タイピング画面のローマ字表示に収まる目安の文字数
+	const size_t MaxRomajiLength = 60;
+
 	std::string Trim(const std::string& text)
 	{
 		size_t begin = 0;
@@ -74,6 +77,13 @@ void ProblemSet::Load(const std::string& path, std::vector<std::string>* warning
 			{
 				warn("problems line " + std::to_string(lineNumber) + ": invalid reading (" + error + ")");
 				continue;
+			}
+
+			// 画面の幅に収まらないローマ字は途中で切れてしまうので、警告だけ出す
+			if (RomajiTyper::ToRomaji(problem.reading).size() > MaxRomajiLength)
+			{
+				warn("problems line " + std::to_string(lineNumber) + ": romaji is longer than "
+					+ std::to_string(MaxRomajiLength) + " characters and may not fit on the screen");
 			}
 			mProblems.push_back(problem);
 		}

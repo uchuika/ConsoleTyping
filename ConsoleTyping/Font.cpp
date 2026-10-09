@@ -45,6 +45,17 @@ TTF_Font* Font::GetFontData(int pointSize)
 	return font;
 }
 
+int Font::GetTextWidth(const std::string& utf8Text, int pointSize)
+{
+	TTF_Font* font = GetFontData(pointSize);
+	int width = 0;
+	if (!font || TTF_SizeUTF8(font, utf8Text.c_str(), &width, nullptr) != 0)
+	{
+		return 0;
+	}
+	return width;
+}
+
 Texture* Font::RenderText(const std::string& utf8Text, int pointSize)
 {
 	// 空文字列は NULL サーフェスになるので描画しない
