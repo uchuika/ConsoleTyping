@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleTyping", "ConsoleTyping\ConsoleTyping.vcxproj", "{6B1C7E52-3D4A-4F8B-9A27-5C0E1D9F4A31}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RomajiTyperTests", "Tests\RomajiTyperTests.vcxproj", "{A3D5F1C8-7E24-4B96-8C0D-2F6B9E41D7A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -15,6 +17,10 @@ Global
 		{6B1C7E52-3D4A-4F8B-9A27-5C0E1D9F4A31}.Debug|x64.Build.0 = Debug|x64
 		{6B1C7E52-3D4A-4F8B-9A27-5C0E1D9F4A31}.Release|x64.ActiveCfg = Release|x64
 		{6B1C7E52-3D4A-4F8B-9A27-5C0E1D9F4A31}.Release|x64.Build.0 = Release|x64
+		{A3D5F1C8-7E24-4B96-8C0D-2F6B9E41D7A5}.Debug|x64.ActiveCfg = Debug|x64
+		{A3D5F1C8-7E24-4B96-8C0D-2F6B9E41D7A5}.Debug|x64.Build.0 = Debug|x64
+		{A3D5F1C8-7E24-4B96-8C0D-2F6B9E41D7A5}.Release|x64.ActiveCfg = Release|x64
+		{A3D5F1C8-7E24-4B96-8C0D-2F6B9E41D7A5}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
