@@ -41,6 +41,8 @@ public:
 
 	float GetScreenWidth() const { return mScreenWidth; }
 	float GetScreenHeight() const { return mScreenHeight; }
+	// exe のあるディレクトリ (末尾は区切り文字)。problems.txt や scores.json の場所
+	const std::string& GetBasePath() const { return mBasePath; }
 
 	// シーン変更は即時ではなく、UpdateGame の最後に適用される
 	void onSceneChanged(const EScene scene, const Parameter& parameter, const bool stackClear) override;
@@ -65,6 +67,7 @@ private:
 	void LoadData();
 	void UnloadData();
 	void ToggleFullscreen();
+	void LoadGameData();
 	void ApplySceneRequests();
 	std::shared_ptr<AbstractScene> CreateScene(EScene scene, const Parameter& parameter);
 

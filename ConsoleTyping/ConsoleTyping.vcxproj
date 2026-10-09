@@ -48,18 +48,19 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)External\SDL2-2.32.8\include;$(ProjectDir)External\SDL2-2.32.8\SDL2_image-2.8.8\include;$(ProjectDir)External\SDL2-2.32.8\SDL2_ttf-2.24.0\include;$(ProjectDir)External\glew-2.3.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)External\SDL2-2.32.8\include;$(ProjectDir)External\SDL2-2.32.8\SDL2_image-2.8.8\include;$(ProjectDir)External\SDL2-2.32.8\SDL2_ttf-2.24.0\include;$(ProjectDir)External\glew-2.3.1\include;$(ProjectDir)External\rapidjson\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)External\SDL2-2.32.8\lib\x64;$(ProjectDir)External\SDL2-2.32.8\SDL2_image-2.8.8\lib\x64;$(ProjectDir)External\SDL2-2.32.8\SDL2_ttf-2.24.0\lib\x64;$(ProjectDir)External\glew-2.3.1\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;glew32.lib;opengl32.lib;imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>call "$(ProjectDir)SDL_dll_copy.bat" "$(OutDir)"
 xcopy "$(ProjectDir)Shaders" "$(OutDir)Shaders\" /E /I /Y
-xcopy "$(ProjectDir)Assets" "$(OutDir)Assets\" /E /I /Y</Command>
+xcopy "$(ProjectDir)Assets" "$(OutDir)Assets\" /E /I /Y
+xcopy "$(ProjectDir)Data\*.txt" "$(OutDir)" /D /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -82,6 +83,11 @@ xcopy "$(ProjectDir)Assets" "$(OutDir)Assets\" /E /I /Y</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="WindowIme.cpp" />
+    <ClCompile Include="RomajiTyper.cpp" />
+    <ClCompile Include="WordFilter.cpp" />
+    <ClCompile Include="ScoreBoard.cpp" />
+    <ClCompile Include="ProblemSet.cpp" />
     <ClCompile Include="AbstractScene.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -101,6 +107,11 @@ xcopy "$(ProjectDir)Assets" "$(OutDir)Assets\" /E /I /Y</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="WindowIme.h" />
+    <ClInclude Include="RomajiTyper.h" />
+    <ClInclude Include="WordFilter.h" />
+    <ClInclude Include="ScoreBoard.h" />
+    <ClInclude Include="ProblemSet.h" />
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="EScene.h" />
     <ClInclude Include="Font.h" />
