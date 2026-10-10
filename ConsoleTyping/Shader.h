@@ -16,27 +16,27 @@ class Shader
 public:
 	Shader();
 	~Shader();
-	// Load the vertex/fragment shaders with the given names
+	// 指定された名前の頂点/フラグメントシェーダをロードする
 	bool Load(const std::string& vertName, const std::string& fragName);
 	void Unload();
-	// Set this as the active shader program
+	// アクティブなシェーダとして設定する
 	void SetActive();
-	// Sets a Matrix uniform
+	// Matrixのuniformを設定する
 	void SetMatrixUniform(const char* name, const Matrix4& matrix);
-	// Sets a vec4 color uniform (rgb + alpha)
+	// vec4の色uniformを設定する(rgb + alpha)
 	void SetColorUniform(const char* name, const Vector3& rgb, float alpha = 1.0f);
 private:
-	// Tries to compile the specified shader
+	// 指定されたシェーダのコンパイルを試みる
 	bool CompileShader(const std::string& fileName,
 					   GLenum shaderType,
 					   GLuint& outShader);
 	
-	// Tests whether shader compiled successfully
+	// シェーダのコンパイルに成功したかの判定
 	bool IsCompiled(GLuint shader);
-	// Tests whether vertex/fragment programs link
+	// 頂点/フラグメントプログラムのリンクを確認
 	bool IsValidProgram();
 private:
-	// Store the shader object IDs
+	// シェーダオブジェクトのIDを格納
 	GLuint mVertexShader;
 	GLuint mFragShader;
 	GLuint mShaderProgram;

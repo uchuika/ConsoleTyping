@@ -14,20 +14,20 @@ public:
 		const unsigned int* indices, unsigned int numIndices);
 	~VertexArray();
 
-	// Activate this vertex array (so we can draw it)
+	// この頂点配列をアクティブにする(描画できるようにする)
 	void SetActive();
 
 	unsigned int GetNumIndices() const { return mNumIndices; }
 	unsigned int GetNumVerts() const { return mNumVerts; }
 private:
-	// How many vertices in the vertex buffer?
+	// 頂点バッファにある頂点の数
 	unsigned int mNumVerts;
-	// How many indices in the index buffer
+	// インデックスバッファにあるインデックスの数
 	unsigned int mNumIndices;
-	// OpenGL ID of the vertex buffer
+	// 頂点バッファのOpenGL ID
 	unsigned int mVertexBuffer;
-	// OpenGL ID of the index buffer
+	// インデックスバッファのOpenGL ID
 	unsigned int mIndexBuffer;
-	// OpenGL ID of the vertex array object
+	// 頂点配列オブジェクトのOpenGL ID
 	unsigned int mVertexArray;
 };

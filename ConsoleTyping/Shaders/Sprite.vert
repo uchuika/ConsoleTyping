@@ -6,28 +6,28 @@
 // See LICENSE in root directory for full details.
 // ----------------------------------------------------------------
 
-// Request GLSL 3.3
+// GLSL 3.3を要求する
 #version 330
 
-// Uniforms for world transform and view-proj
+// ワールド変換とビュー投影のuniform
 uniform mat4 uWorldTransform;
 uniform mat4 uViewProj;
 
-// Attribute 0 is position, 1 is tex coords.
+// 属性0は位置、1はテクスチャ座標
 layout(location = 0) in vec3 inPosition;
 layout(location = 1) in vec2 inTexCoord;
 
-// Add texture coordinate as output
+// テクスチャ座標を出力に追加する
 out vec2 fragTexCoord;
 
 void main()
 {
-	// Convert position to homogeneous coordinates
+	// 位置を同次座標に変換する
 	vec4 pos = vec4(inPosition, 1.0);
-	// Transform position to world space, then clip space
+	// 位置をワールド空間へ、続いてクリップ空間へ変換する
 	gl_Position = pos * uWorldTransform * uViewProj;
 
-	// Transform
-	// Pass along the texture coordinate to frag shader
+	// 変換
+	// テクスチャ座標をフラグメントシェーダへ渡す
 	fragTexCoord = inTexCoord;
 }

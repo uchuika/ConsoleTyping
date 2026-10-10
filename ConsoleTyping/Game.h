@@ -71,29 +71,29 @@ private:
 	void ApplySceneRequests();
 	std::shared_ptr<AbstractScene> CreateScene(EScene scene, const Parameter& parameter);
 
-	// Map of textures loaded
+	// ロード済みのテクスチャのマップ
 	std::unordered_map<std::string, class Texture*> mTextures;
-	// Map of fonts loaded
+	// ロード済みのフォントのマップ
 	std::unordered_map<std::string, class Font*> mFonts;
 
 	class Texture* mWhiteTexture;
 	class Texture* mCircleTexture;
 
-	// All the actors in the game
+	// ゲーム内の全てのアクター
 	std::vector<class Actor*> mActors;
-	// Any pending actors
+	// 保留中のアクター
 	std::vector<class Actor*> mPendingActors;
 
-	// All the sprite components drawn
+	// 描画される全てのスプライトコンポーネント
 	std::vector<class SpriteComponent*> mSprites;
 
 	// シーンのスタック。一番上のシーンだけが動く
 	std::stack<std::shared_ptr<AbstractScene>> mSceneStack;
 	std::vector<SceneRequest> mSceneRequests;
 
-	// Sprite shader
+	// スプライトシェーダ
 	class Shader* mSpriteShader;
-	// Sprite vertex array
+	// スプライトの頂点配列
 	class VertexArray* mSpriteVerts;
 
 	SDL_Window* mWindow;
@@ -101,7 +101,7 @@ private:
 	Uint32 mTicksCount;
 	bool mIsRunning;
 	bool mIsFullScreen;
-	// Track if we're updating actors right now
+	// 現在アクターを更新しているかどうか
 	bool mUpdatingActors;
 
 	// 論理解像度 (投影行列とウィンドウの基準サイズ)

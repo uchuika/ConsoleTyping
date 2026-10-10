@@ -12,7 +12,7 @@
 class SpriteComponent : public Component
 {
 public:
-	// (Lower draw order corresponds with further back)
+	// (描画順が小さいほど奥に描画される)
 	SpriteComponent(class Actor* owner, int drawOrder = 100);
 	~SpriteComponent();
 

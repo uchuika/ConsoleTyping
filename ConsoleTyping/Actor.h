@@ -24,19 +24,19 @@ public:
 	Actor(class Game* game);
 	virtual ~Actor();
 
-	// Update function called from Game (not overridable)
+	// ゲームから呼び出される更新関数(オーバーライド不可)
 	void Update(float deltaTime);
-	// Updates all the components attached to the actor (not overridable)
+	// アクターにアタッチされたすべてのコンポーネントを更新する(オーバーライド不可)
 	void UpdateComponents(float deltaTime);
-	// Any actor-specific update code (overridable)
+	// アクター固有の更新コード(オーバーライド可能)
 	virtual void UpdateActor(float deltaTime);
 
-	// ProcessInput function called from Game (not overridable)
+	// Gameから呼び出されるProcessInput関数(オーバーライド不可)
 	void ProcessInput(const uint8_t* keyState);
-	// Any actor-specific input code (overridable)
+	// アクター固有の入力コード(オーバーライド可能)
 	virtual void ActorInput(const uint8_t* keyState);
 
-	// Getters/setters
+	// ゲッター/セッター
 	const Vector2& GetPosition() const { return mPosition; }
 	void SetPosition(const Vector2& pos) { mPosition = pos; mRecomputeWorldTransform = true; }
 	float GetScale() const { return mScale; }
@@ -55,14 +55,14 @@ public:
 	class Game* GetGame() { return mGame; }
 
 
-	// Add/remove components
+	// コンポーネントの追加と削除
 	void AddComponent(class Component* component);
 	void RemoveComponent(class Component* component);
 private:
-	// Actor's state
+	// アクターの状態
 	State mState;
 
-	// Transform
+	// トランスフォーム
 	Matrix4 mWorldTransform;
 	Vector2 mPosition;
 	float mScale;

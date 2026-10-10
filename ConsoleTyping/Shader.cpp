@@ -27,7 +27,7 @@ Shader::~Shader()
 
 bool Shader::Load(const std::string& vertName, const std::string& fragName)
 {
-	// Compile vertex and pixel shaders
+	// 頂点シェーダとピクセルシェーダをコンパイルする
 	if (!CompileShader(vertName,
 		GL_VERTEX_SHADER,
 		mVertexShader) ||
@@ -38,14 +38,14 @@ bool Shader::Load(const std::string& vertName, const std::string& fragName)
 		return false;
 	}
 	
-	// Now create a shader program that
-	// links together the vertex/frag shaders
+	// ここでシェーダプログラムを作成する
+	// 頂点/フラグメントシェーダをまとめてリンクする
 	mShaderProgram = glCreateProgram();
 	glAttachShader(mShaderProgram, mVertexShader);
 	glAttachShader(mShaderProgram, mFragShader);
 	glLinkProgram(mShaderProgram);
 	
-	// Verify that the program linked successfully
+	// プログラムが正常にリンクしたか確認する
 	if (!IsValidProgram())
 	{
 		return false;
@@ -56,7 +56,7 @@ bool Shader::Load(const std::string& vertName, const std::string& fragName)
 
 void Shader::Unload()
 {
-	// Delete the program/shaders
+	// プログラム/シェーダを削除する
 	glDeleteProgram(mShaderProgram);
 	glDeleteShader(mVertexShader);
 	glDeleteShader(mFragShader);
@@ -64,15 +64,15 @@ void Shader::Unload()
 
 void Shader::SetActive()
 {
-	// Set this program as the active one
+	// このプログラムをアクティブに設定する
 	glUseProgram(mShaderProgram);
 }
 
 void Shader::SetMatrixUniform(const char* name, const Matrix4& matrix)
 {
-	// Find the uniform by this name
+	// この名前のuniformを探す
 	GLuint loc = glGetUniformLocation(mShaderProgram, name);
-	// Send the matrix data to the uniform
+	// 行列データをuniformへ送る
 	glUniformMatrix4fv(loc, 1, GL_TRUE, matrix.GetAsFloatPtr());
 }
 
@@ -86,19 +86,19 @@ bool Shader::CompileShader(const std::string& fileName,
 	GLenum shaderType,
 	GLuint& outShader)
 {
-	// Open file
+	// ファイルを開く
 	std::ifstream shaderFile(fileName);
 	if (shaderFile.is_open())
 	{
-		// Read all the text into a string
+		// テキスト全体を文字列に読み込む
 		std::stringstream sstream;
 		sstream << shaderFile.rdbuf();
 		std::string contents = sstream.str();
 		const char* contentsChar = contents.c_str();
 		
-		// Create a shader of the specified type
+		// 指定された種類のシェーダを作成する
 		outShader = glCreateShader(shaderType);
-		// Set the source characters and try to compile
+		// ソース文字列を設定してコンパイルを試みる
 		glShaderSource(outShader, 1, &(contentsChar), nullptr);
 		glCompileShader(outShader);
 		
@@ -120,7 +120,7 @@ bool Shader::CompileShader(const std::string& fileName,
 bool Shader::IsCompiled(GLuint shader)
 {
 	GLint status;
-	// Query the compile status
+	// コンパイル状態を問い合わせる
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
 	
 	if (status != GL_TRUE)
@@ -139,7 +139,7 @@ bool Shader::IsValidProgram()
 {
 	
 	GLint status;
-	// Query the link status
+	// リンク状態を問い合わせる
 	glGetProgramiv(mShaderProgram, GL_LINK_STATUS, &status);
 	if (status != GL_TRUE)
 	{

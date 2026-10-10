@@ -77,7 +77,7 @@ bool Texture::CreateFromSurface(SDL_Surface* surface)
 
 	SDL_FreeSurface(converted);
 
-	// Enable bilinear filtering
+	// バイリニアフィルタリングを有効にする
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
