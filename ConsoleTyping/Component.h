@@ -12,22 +12,22 @@
 class Component
 {
 public:
-	// Constructor
-	// (the lower the update order, the earlier the component updates)
+	// コンストラクタ
+	// (更新順序が低いほど、コンポーネントは早く更新される)
 	Component(class Actor* owner, int updateOrder = 100);
-	// Destructor
+	// デストラクタ
 	virtual ~Component();
-	// Update this component by delta time
+	// このコンポーネントをデルタタイムで更新する
 	virtual void Update(float deltaTime);
-	// Process input for this component
+	// このコンポーネントの入力を処理する
 	virtual void ProcessInput(const uint8_t* keyState) {}
-	// Called when world transform changes
+	// ワールド変換が変わったときに呼ばれる
 	virtual void OnUpdateWorldTransform() { }
 
 	int GetUpdateOrder() const { return mUpdateOrder; }
 protected:
-	// Owning actor
+	// 所有しているアクター
 	class Actor* mOwner;
-	// Update order of component
+	// コンポーネントの更新順序
 	int mUpdateOrder;
 };

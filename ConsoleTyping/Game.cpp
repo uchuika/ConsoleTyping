@@ -57,20 +57,20 @@ bool Game::Initialize()
 		SDL_free(basePath);
 	}
 
-	// Set OpenGL attributes
-	// Use the core OpenGL profile
+	// OpenGLの属性を設定する
+	// コアOpenGLプロファイルを使う
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	// Specify version 3.3
+	// バージョン3.3を指定する
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-	// Request a color buffer with 8-bits per RGBA channel
+	// RGBA各チャンネル8bitのカラーバッファを要求する
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
-	// Enable double buffering
+	// ダブルバッファを有効にする
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	// Force OpenGL to use hardware acceleration
+	// OpenGLにハードウェアアクセラレーションを使わせる
 	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
 	mWindow = SDL_CreateWindow("ConsoleTyping", 100, 100,
@@ -83,10 +83,10 @@ bool Game::Initialize()
 		return false;
 	}
 
-	// Create an OpenGL context
+	// OpenGLコンテキストを作成する
 	mContext = SDL_GL_CreateContext(mWindow);
 
-	// Initialize GLEW
+	// GLEWを初期化する
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK)
 	{
@@ -94,8 +94,8 @@ bool Game::Initialize()
 		return false;
 	}
 
-	// On some platforms, GLEW will emit a benign error code,
-	// so clear it
+	// 一部のプラットフォームではGLEWが無害なエラーコードを出す
+	// それをクリアする
 	glGetError();
 
 	if (IMG_Init(IMG_INIT_PNG) == 0)
@@ -110,14 +110,14 @@ bool Game::Initialize()
 		return false;
 	}
 	
-	// Make sure we can create/compile shaders
+	// シェーダを作成/コンパイルできることを確認する
 	if (!LoadShaders())
 	{
 		SDL_Log("Failed to load shaders.");
 		return false;
 	}
 
-	// Create quad for drawing sprites
+	// スプライト描画用の四角形を作成する
 	CreateSpriteVerts();
 
 	DisableIme(mWindow);
@@ -223,8 +223,8 @@ void Game::ToggleFullscreen()
 
 void Game::UpdateGame()
 {
-	// Compute delta time
-	// Wait until 16ms has elapsed since last frame
+	// デルタタイムを計算する
+	// 最後のフレームから16ms経過するまで待つ
 	while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16))
 		;
 
@@ -235,7 +235,7 @@ void Game::UpdateGame()
 	}
 	mTicksCount = SDL_GetTicks();
 
-	// Update all actors
+	// 全てのアクターを更新
 	mUpdatingActors = true;
 	for (auto actor : mActors)
 	{
@@ -249,7 +249,7 @@ void Game::UpdateGame()
 		mSceneStack.top()->update(deltaTime);
 	}
 
-	// Move any pending actors to mActors
+	// 保留中のアクターをmActorsに移動する
 	for (auto pending : mPendingActors)
 	{
 		pending->ComputeWorldTransform();
@@ -257,7 +257,7 @@ void Game::UpdateGame()
 	}
 	mPendingActors.clear();
 
-	// Add any dead actors to a temp vector
+	// 死んだアクターを一時ベクターに追加する
 	std::vector<Actor*> deadActors;
 	for (auto actor : mActors)
 	{
@@ -267,7 +267,7 @@ void Game::UpdateGame()
 		}
 	}
 
-	// Delete dead actors (which removes them from mActors)
+	// 死んだアクターを削除する(これによりmActorsから削除される)
 	for (auto actor : deadActors)
 	{
 		delete actor;
@@ -302,12 +302,12 @@ void Game::GenerateOutput()
 	viewH = std::max(1, std::min(viewH, drawableH));
 	glViewport((drawableW - viewW) / 2, (drawableH - viewH) / 2, viewW, viewH);
 
-	// Draw all sprite components
+	// 全てのスプライトコンポーネントを描画する
 	// テクスチャは乗算済みアルファなのでそれに合わせたブレンドにする
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
-	// Set shader/vao as active
+	// シェーダ/vaoをアクティブに設定する
 	mSpriteShader->SetActive();
 	mSpriteVerts->SetActive();
 	for (auto sprite : mSprites)
@@ -321,7 +321,7 @@ void Game::GenerateOutput()
 		mSceneStack.top()->draw(mSpriteShader);
 	}
 
-	// Swap the buffers
+	// バッファを交換する
 	SDL_GL_SwapWindow(mWindow);
 }
 
@@ -335,7 +335,7 @@ bool Game::LoadShaders()
 	}
 
 	mSpriteShader->SetActive();
-	// Set the view-projection matrix
+	// ビュー投影行列を設定する
 	Matrix4 viewProj = Matrix4::CreateSimpleViewProj(mScreenWidth, mScreenHeight);
 	mSpriteShader->SetMatrixUniform("uViewProj", viewProj);
 	return true;
@@ -344,10 +344,10 @@ bool Game::LoadShaders()
 void Game::CreateSpriteVerts()
 {
 	float vertices[] = {
-		-0.5f,  0.5f, 0.f, 0.f, 0.f, // top left
-		 0.5f,  0.5f, 0.f, 1.f, 0.f, // top right
-		 0.5f, -0.5f, 0.f, 1.f, 1.f, // bottom right
-		-0.5f, -0.5f, 0.f, 0.f, 1.f  // bottom left
+		-0.5f,  0.5f, 0.f, 0.f, 0.f, // 左上
+		 0.5f,  0.5f, 0.f, 1.f, 0.f, // 右上
+		 0.5f, -0.5f, 0.f, 1.f, 1.f, // 右下
+		-0.5f, -0.5f, 0.f, 0.f, 1.f  // 左下
 	};
 
 	unsigned int indices[] = {
@@ -420,14 +420,14 @@ void Game::UnloadData()
 		mSceneStack.pop();
 	}
 
-	// Delete actors
-	// Because ~Actor calls RemoveActor, have to use a different style loop
+	// アクターを削除する
+	// ~ActorはRemoveActorを呼び出すので、別のスタイルのループが必要である
 	while (!mActors.empty())
 	{
 		delete mActors.back();
 	}
 
-	// Destroy textures
+	// テクスチャを破棄する
 	for (auto i : mTextures)
 	{
 		i.second->Unload();
@@ -568,7 +568,7 @@ void Game::Shutdown()
 
 void Game::AddActor(Actor* actor)
 {
-	// If we're updating actors, need to add to pending
+	// アクターを更新中なら、保留中の配列に追加する必要がある
 	if (mUpdatingActors)
 	{
 		mPendingActors.emplace_back(actor);
@@ -581,20 +581,20 @@ void Game::AddActor(Actor* actor)
 
 void Game::RemoveActor(Actor* actor)
 {
-	// Is it in pending actors?
+	// 保留中のアクターかどうか
 	auto iter = std::find(mPendingActors.begin(), mPendingActors.end(), actor);
 	if (iter != mPendingActors.end())
 	{
-		// Swap to end of vector and pop off (avoid erase copies)
+		// 配列の一番後ろに移動しポップオフ(eraseによるコピーを避ける)
 		std::iter_swap(iter, mPendingActors.end() - 1);
 		mPendingActors.pop_back();
 	}
 
-	// Is it in actors?
+	// 通常のアクターかどうか
 	iter = std::find(mActors.begin(), mActors.end(), actor);
 	if (iter != mActors.end())
 	{
-		// Swap to end of vector and pop off (avoid erase copies)
+		// 配列の一番後ろに移動しポップオフ(eraseによるコピーを避ける)
 		std::iter_swap(iter, mActors.end() - 1);
 		mActors.pop_back();
 	}
@@ -602,8 +602,8 @@ void Game::RemoveActor(Actor* actor)
 
 void Game::AddSprite(SpriteComponent* sprite)
 {
-	// Find the insertion point in the sorted vector
-	// (The first element with a higher draw order than me)
+	// ソートされた配列のどこに入れ込むかを調べる
+	// (自分より描画順が大きい最初の要素)
 	int myDrawOrder = sprite->GetDrawOrder();
 	auto iter = mSprites.begin();
 	for (;
@@ -616,7 +616,7 @@ void Game::AddSprite(SpriteComponent* sprite)
 		}
 	}
 
-	// Inserts element before position of iterator
+	// イテレータの位置より前に要素を挿入する
 	mSprites.insert(iter, sprite);
 }
 

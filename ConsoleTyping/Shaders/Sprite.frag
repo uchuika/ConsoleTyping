@@ -6,25 +6,25 @@
 // See LICENSE in root directory for full details.
 // ----------------------------------------------------------------
 
-// Request GLSL 3.3
+// GLSL 3.3を要求する
 #version 330
 
-// Tex coord input from vertex shader
+// 頂点シェーダからのテクスチャ座標入力
 in vec2 fragTexCoord;
 
-// This corresponds to the output color to the color buffer
+// カラーバッファへの出力色に対応する
 out vec4 outColor;
 
-// This is used for the texture sampling
+// テクスチャのサンプリングに使う
 uniform sampler2D uTexture;
 
-// Tint color (rgb) and opacity (a)
+// ティント色(rgb)と不透明度(a)
 uniform vec4 uColor;
 
 void main()
 {
-	// Sample color from texture
-	// Textures are uploaded premultiplied, so tint rgb by uColor.a as well
+	// テクスチャから色をサンプリングする
+	// テクスチャは事前乗算でアップロードされるので、rgbもuColor.aでティントする
 	vec4 tex = texture(uTexture, fragTexCoord);
 	outColor = vec4(tex.rgb * uColor.rgb * uColor.a, tex.a * uColor.a);
 }
