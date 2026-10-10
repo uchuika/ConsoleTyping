@@ -97,7 +97,7 @@ void Actor::ComputeWorldTransform()
 void Actor::AddComponent(Component* component)
 {
 	// ソートされた配列のどこに入れ込むかを調べる
-	// (自分自身より順位が高い最初の要素)
+	// (自分より updateOrder の値が大きい最初の要素)
 	int myOrder = component->GetUpdateOrder();
 	auto iter = mComponents.begin();
 	for (;
