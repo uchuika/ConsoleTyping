@@ -201,7 +201,7 @@ void Matrix4::Invert()
 		dst[j] *= det;
 	}
 
-	// 元に戻す
+	// 計算結果を自身に書き戻す
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 4; j++)
