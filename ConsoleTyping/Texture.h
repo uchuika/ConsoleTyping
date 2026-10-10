@@ -16,7 +16,7 @@ public:
 	~Texture();
 	
 	bool Load(const std::string& fileName);
-	// Uploads the surface as a premultiplied-alpha RGBA texture (surface is not freed)
+	// サーフェスを事前乗算アルファのRGBAテクスチャとしてアップロードする(サーフェスは解放しない)
 	bool CreateFromSurface(struct SDL_Surface* surface);
 	void Unload();
 	
@@ -25,9 +25,9 @@ public:
 	int GetWidth() const { return mWidth; }
 	int GetHeight() const { return mHeight; }
 private:
-	// OpenGL ID of this texture
+	// このテクスチャのOpenGL ID
 	unsigned int mTextureID;
-	// Width/height of the texture
+	// テクスチャの幅/高さ
 	int mWidth;
 	int mHeight;
 };

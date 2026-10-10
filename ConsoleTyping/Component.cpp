@@ -13,7 +13,7 @@ Component::Component(Actor* owner, int updateOrder)
 	:mOwner(owner)
 	,mUpdateOrder(updateOrder)
 {
-	// Add to actor's vector of components
+	// アクターのコンポーネントvectorに追加する
 	mOwner->AddComponent(this);
 }
 

@@ -25,8 +25,8 @@ Actor::Actor(Game* game)
 Actor::~Actor()
 {
 	mGame->RemoveActor(this);
-	// Need to delete components
-	// Because ~Component calls RemoveComponent, need a different style loop
+	// コンポーネント削除の必要性
+	// ~ComponentはRemoveComponentを呼び出すので、別のスタイルのループが必要である
 	while (!mComponents.empty())
 	{
 		delete mComponents.back();
@@ -62,7 +62,7 @@ void Actor::ProcessInput(const uint8_t* keyState)
 {
 	if (mState == EActive)
 	{
-		// First process input for components
+		// まずコンポーネントの入力を処理する
 		for (auto comp : mComponents)
 		{
 			comp->ProcessInput(keyState);
@@ -81,12 +81,12 @@ void Actor::ComputeWorldTransform()
 	if (mRecomputeWorldTransform)
 	{
 		mRecomputeWorldTransform = false;
-		// Scale, then rotate, then translate
+		// スケールし、次に回転し、次に平行移動する
 		mWorldTransform = Matrix4::CreateScale(mScale);
 		mWorldTransform *= Matrix4::CreateRotationZ(mRotation);
 		mWorldTransform *= Matrix4::CreateTranslation(Vector3(mPosition.x, mPosition.y, 0.0f));
 
-		// Inform components world transform updated
+		// コンポーネントにワールド変換が更新されたことを通知する
 		for (auto comp : mComponents)
 		{
 			comp->OnUpdateWorldTransform();
@@ -96,8 +96,8 @@ void Actor::ComputeWorldTransform()
 
 void Actor::AddComponent(Component* component)
 {
-	// Find the insertion point in the sorted vector
-	// (The first element with a order higher than me)
+	// ソートされた配列のどこに入れ込むかを調べる
+	// (自分より updateOrder の値が大きい最初の要素)
 	int myOrder = component->GetUpdateOrder();
 	auto iter = mComponents.begin();
 	for (;
@@ -110,7 +110,7 @@ void Actor::AddComponent(Component* component)
 		}
 	}
 
-	// Inserts element before position of iterator
+	// イテレータの位置より前に要素を挿入する
 	mComponents.insert(iter, component);
 }
 

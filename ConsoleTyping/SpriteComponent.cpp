@@ -31,7 +31,7 @@ void SpriteComponent::Draw(Shader* shader)
 {
 	if (mTexture)
 	{
-		// Scale the quad by the width/height of texture
+		// テクスチャの幅/高さで四角形をスケールする
 		Matrix4 scaleMat = Matrix4::CreateScale(
 			static_cast<float>(mTexWidth),
 			static_cast<float>(mTexHeight),
@@ -39,16 +39,16 @@ void SpriteComponent::Draw(Shader* shader)
 		
 		Matrix4 world = scaleMat * mOwner->GetWorldTransform();
 		
-		// Since all sprites use the same shader/vertices,
-		// the game first sets them active before any sprite draws
+		// 全てのスプライトは同じシェーダ/頂点を使うので
+		// ゲームはスプライトを描画する前にそれらをアクティブにする
 		
-		// Set world transform
+		// ワールド変換を設定する
 		shader->SetMatrixUniform("uWorldTransform", world);
-		// Always reset the tint so UI colors never leak into sprites
+		// UIの色がスプライトに漏れないよう、常にティントをリセットする
 		shader->SetColorUniform("uColor", Vector3(1.0f, 1.0f, 1.0f), 1.0f);
-		// Set current texture
+		// 現在のテクスチャを設定する
 		mTexture->SetActive();
-		// Draw quad
+		// 四角形を描画する
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 	}
 }
@@ -56,7 +56,7 @@ void SpriteComponent::Draw(Shader* shader)
 void SpriteComponent::SetTexture(Texture* texture)
 {
 	mTexture = texture;
-	// Set width/height
+	// 幅/高さを設定する
 	mTexWidth = texture->GetWidth();
 	mTexHeight = texture->GetHeight();
 }
