@@ -64,12 +64,7 @@ const MainMenuScene::Command MainMenuScene::sCommands[] = {
 MainMenuScene::MainMenuScene(IOnSceneChangedListener* impl, const Parameter& parameter, Game* game)
 :AbstractScene(impl, parameter, game)
 {
-	SetFrameInfo(u8"文化祭展示  ·  local", {
-		{ u8"help", u8"コマンド一覧" },
-		{ u8"Enter", u8"実行" },
-		{ u8"Esc", u8"入力を消す" },
-		{ u8"Alt+Enter", u8"全画面 / ウィンドウ" },
-	});
+	
 
 	mPrompt = AddText(u8"PS C:\\festival>", RowFontSize);
 	mInputText = AddText("", RowFontSize);
@@ -78,7 +73,6 @@ MainMenuScene::MainMenuScene(IOnSceneChangedListener* impl, const Parameter& par
 		mLogTexts.push_back(AddText("", RowFontSize));
 	}
 
-	AddLog(LogKind::Output, u8"ターミナル風タイピング     –   1分間、正しく打てたローマ字を数える");
 	AddLog(LogKind::Hint, u8"help と入力して Enter を押すと、コマンド一覧を表示します");
 	RefreshTexts();
 }
