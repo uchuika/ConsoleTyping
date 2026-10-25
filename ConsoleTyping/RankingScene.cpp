@@ -27,15 +27,11 @@ RankingScene::RankingScene(IOnSceneChangedListener* impl, const Parameter& param
 :AbstractScene(impl, parameter, game)
 ,mScroll(0)
 {
-	SetFrameInfo(u8"ranking  ·  local", {
-		{ u8"↑↓", u8"スクロール" },
-		{ u8"Esc", u8"メニューへ戻る" },
-		{ u8"Alt+Enter", u8"全画面 / ウィンドウ" },
-	});
+	SetFrameInfo(u8"ranking  ·  local", {});
 
 	mPrompt = AddText("PS C:\\festival>", 18);
-	mCommand = AddText("ranking --sort chars", 18);
-	mSubtitle = AddText(u8"正しく打てたローマ字の文字数が多い順    上下キーで上位 20 位まで", 20);
+	mCommand = AddText("rank", 18);
+	mSubtitle = AddText(u8"", 20);
 	mHeaderRank = AddText(u8"順位", 16);
 	mHeaderName = AddText(u8"ニックネーム", 16);
 	mHeaderChars = AddText(u8"文字数", 16);
@@ -43,8 +39,8 @@ RankingScene::RankingScene(IOnSceneChangedListener* impl, const Parameter& param
 	mThisPlay = AddText(u8"←  このプレイ", 16);
 	mEmpty = AddText(u8"まだ記録がありません。タイピングで最初の記録を作ろう", 20);
 	mRange = AddText("", 14);
-	mNote = AddText(u8"Esc でメインメニューへ戻る", 14);
-	mFile = AddText("scores.json", 14);
+	mNote = AddText(u8"", 14);
+	mFile = AddText("", 14);
 
 	// 今回のプレイを強調するのは、タイピング画面から直接来たときだけ
 	const int highlightId = (parameter.get("highlight") == 1) ? ScoreBoard::getIns()->GetLastAddedId() : -1;
