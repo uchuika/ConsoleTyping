@@ -2,6 +2,8 @@
 
 #include "AbstractScene.h"
 
+// コマンドを打って操作するメインメニュー。実行した行と結果はログとして残り、
+// タイピングやランキングから戻ってもそのまま見える
 class MainMenuScene : public AbstractScene
 {
 public:
@@ -13,23 +15,41 @@ public:
 	EScene GetScene() const override;
 
 private:
-	struct Item
+	enum class LogKind
 	{
-		EScene scene;
-		Text* title;
-		Text* description;
+		Command,
+		Output,
+		Hint,
+		Error,
 	};
 
-	void DrawItem(class Shader* shader, const Item& item, float y, bool selected) const;
+	struct LogLine
+	{
+		LogKind kind;
+		std::string text;
+	};
 
-	std::vector<Item> mItems;
-	int mSelected;
+	struct Command
+	{
+		const char* name;
+		const char* description;
+		void (MainMenuScene::*run)();
+	};
 
+	static const Command sCommands[];
+
+	void AddLog(LogKind kind, const std::string& text);
+	void RefreshTexts();
+
+	void Execute();
+	void CmdHelp();
+	void CmdStart();
+	void CmdRank();
+
+	std::vector<LogLine> mLog;
+	std::string mInput;
+
+	std::vector<Text*> mLogTexts;
+	Text* mInputText;
 	Text* mPrompt;
-	Text* mSubtitle;
-	Text* mSelectLabel;
-	Text* mSelectHint;
-	Text* mExitLabel;
-	Text* mExitLine1;
-	Text* mExitLine2;
 };

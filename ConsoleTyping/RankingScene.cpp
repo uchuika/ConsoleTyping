@@ -34,7 +34,7 @@ RankingScene::RankingScene(IOnSceneChangedListener* impl, const Parameter& param
 	});
 
 	mPrompt = AddText("PS C:\\festival>", 18);
-	mCommand = AddText("ranking --sort chars", 18);
+	mCommand = AddText("rank", 18);
 	mSubtitle = AddText(u8"正しく打てたローマ字の文字数が多い順    上下キーで上位 20 位まで", 20);
 	mHeaderRank = AddText(u8"順位", 16);
 	mHeaderName = AddText(u8"ニックネーム", 16);
