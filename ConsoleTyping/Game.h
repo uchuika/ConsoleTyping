@@ -107,6 +107,8 @@ private:
 	// 論理解像度 (投影行列とウィンドウの基準サイズ)
 	float mScreenWidth;
 	float mScreenHeight;
+	// 論理解像度に対する実際の描画の拡大率。文字を作る大きさに使う
+	float mRenderScale;
 	// exe のあるディレクトリ (末尾は区切り文字)。Shaders/Assets の基準
 	std::string mBasePath;
 };

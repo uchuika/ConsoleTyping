@@ -1,4 +1,6 @@
 #include "Font.h"
+#include <algorithm>
+#include <cmath>
 #include <SDL.h>
 #include "Texture.h"
 
@@ -14,7 +16,7 @@ bool Font::Load(const std::string& fileName)
 {
 	mFileName = fileName;
 	// 開けるかどうかをここで確認する
-	return GetFontData(16) != nullptr;
+	return GetFontData(ToPixelSize(16)) != nullptr;
 }
 
 void Font::Unload()
@@ -26,34 +28,51 @@ void Font::Unload()
 	mFontData.clear();
 }
 
-TTF_Font* Font::GetFontData(int pointSize)
+void Font::SetScale(float scale)
 {
-	auto iter = mFontData.find(pointSize);
+	if (scale <= 0.0f || scale == mScale)
+	{
+		return;
+	}
+	mScale = scale;
+	mScaleVersion++;
+	// 古い拡大率のサイズを持ち続けないよう開き直す
+	Unload();
+}
+
+int Font::ToPixelSize(int pointSize) const
+{
+	return std::max(1, static_cast<int>(std::lround(pointSize * mScale)));
+}
+
+TTF_Font* Font::GetFontData(int pixelSize)
+{
+	auto iter = mFontData.find(pixelSize);
 	if (iter != mFontData.end())
 	{
 		return iter->second;
 	}
 
-	TTF_Font* font = TTF_OpenFont(mFileName.c_str(), pointSize);
+	TTF_Font* font = TTF_OpenFont(mFileName.c_str(), pixelSize);
 	if (!font)
 	{
 		SDL_Log("Failed to load font %s in size %d: %s",
-			mFileName.c_str(), pointSize, TTF_GetError());
+			mFileName.c_str(), pixelSize, TTF_GetError());
 		return nullptr;
 	}
-	mFontData.emplace(pointSize, font);
+	mFontData.emplace(pixelSize, font);
 	return font;
 }
 
 int Font::GetTextWidth(const std::string& utf8Text, int pointSize)
 {
-	TTF_Font* font = GetFontData(pointSize);
+	TTF_Font* font = GetFontData(ToPixelSize(pointSize));
 	int width = 0;
 	if (!font || TTF_SizeUTF8(font, utf8Text.c_str(), &width, nullptr) != 0)
 	{
 		return 0;
 	}
-	return width;
+	return static_cast<int>(std::lround(width / mScale));
 }
 
 Texture* Font::RenderText(const std::string& utf8Text, int pointSize)
@@ -64,7 +83,7 @@ Texture* Font::RenderText(const std::string& utf8Text, int pointSize)
 		return nullptr;
 	}
 
-	TTF_Font* font = GetFontData(pointSize);
+	TTF_Font* font = GetFontData(ToPixelSize(pointSize));
 	if (!font)
 	{
 		return nullptr;

@@ -38,12 +38,16 @@ Game::Game()
 ,mUpdatingActors(false)
 ,mScreenWidth(1280.0f)
 ,mScreenHeight(720.0f)
+,mRenderScale(1.0f)
 {
 
 }
 
 bool Game::Initialize()
 {
+	// OS の表示倍率による引き伸ばしを避け、実際の画面ピクセルで描く
+	SDL_SetHint(SDL_HINT_WINDOWS_DPI_AWARENESS, "permonitorv2");
+
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
@@ -296,6 +300,15 @@ void Game::GenerateOutput()
 
 	// 論理解像度の比率を保って中央に表示する
 	const float scale = std::fmin(drawableW / mScreenWidth, drawableH / mScreenHeight);
+	if (scale != mRenderScale)
+	{
+		// 文字を新しい拡大率で作り直す (Text が描画時に気づく)
+		mRenderScale = scale;
+		for (auto& font : mFonts)
+		{
+			font.second->SetScale(scale);
+		}
+	}
 	int viewW = static_cast<int>(std::lround(mScreenWidth * scale));
 	int viewH = static_cast<int>(std::lround(mScreenHeight * scale));
 	viewW = std::max(1, std::min(viewW, drawableW));
@@ -487,6 +500,7 @@ Font* Game::GetFont(const std::string& fileName)
 	}
 
 	Font* font = new Font();
+	font->SetScale(mRenderScale);
 	if (!font->Load(mBasePath + fileName))
 	{
 		delete font;

@@ -1,4 +1,5 @@
 #include "AbstractScene.h"
+#include <cmath>
 #include <GL/glew.h>
 #include "Game.h"
 #include "Font.h"
@@ -97,12 +98,16 @@ void AbstractScene::DrawTerminalFrame(Shader* shader) const
 void AbstractScene::DrawText(Shader* shader, const Text* text, float x, float y,
 	const Vector3& color, float alpha) const
 {
-	if (!text || !text->GetTexture())
+	Texture* texture = text ? text->GetTexture() : nullptr;
+	if (!texture)
 	{
 		return;
 	}
-	DrawTexture(shader, text->GetTexture(), x, y,
-		static_cast<float>(text->GetWidth()), static_cast<float>(text->GetHeight()),
+	// テクスチャの 1 ピクセルが画面の 1 ピクセルに重なるよう、位置を画面ピクセルに丸める
+	const float scale = mFont->GetScale();
+	DrawTexture(shader, texture,
+		std::round(x * scale) / scale, std::round(y * scale) / scale,
+		text->GetDrawWidth(), text->GetDrawHeight(),
 		color, alpha);
 }
 
