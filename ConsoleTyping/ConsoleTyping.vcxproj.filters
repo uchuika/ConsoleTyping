@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\MainMenu">
+      <UniqueIdentifier>{84861574-61f8-4055-9f24-8557a7849245}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Typing">
+      <UniqueIdentifier>{1b3f2218-e22b-4480-9f97-49d821b70cce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Ranking">
+      <UniqueIdentifier>{93787757-7698-4313-a590-80a321ef4a0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Font">
+      <UniqueIdentifier>{bb3421b8-e9a6-4d60-9014-88897f936e42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\common">
+      <UniqueIdentifier>{07e79b66-1fa2-4c2c-86f8-24c740e561cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Component">
+      <UniqueIdentifier>{9fab4ca4-b638-477a-84e3-ef22d53c5fec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Actor">
+      <UniqueIdentifier>{2eb28375-6811-4680-8803-7671c5a6911f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Shaders">
+      <UniqueIdentifier>{63b70dc4-3a39-4539-be43-97729b348c07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Data">
+      <UniqueIdentifier>{a3e161d9-1d90-43e5-8e53-7c20c66ef3e1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Parameter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexArray.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>ソース ファイル\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="TypingScene.cpp">
+      <Filter>ソース ファイル\Typing</Filter>
+    </ClCompile>
+    <ClCompile Include="RomajiTyper.cpp">
+      <Filter>ソース ファイル\Typing</Filter>
+    </ClCompile>
+    <ClCompile Include="ProblemSet.cpp">
+      <Filter>ソース ファイル\Typing</Filter>
+    </ClCompile>
+    <ClCompile Include="WordFilter.cpp">
+      <Filter>ソース ファイル\Typing</Filter>
+    </ClCompile>
+    <ClCompile Include="RankingScene.cpp">
+      <Filter>ソース ファイル\Ranking</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreBoard.cpp">
+      <Filter>ソース ファイル\Ranking</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>ソース ファイル\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>ソース ファイル\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowIme.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>ソース ファイル\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>ソース ファイル\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractScene.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameter.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="EScene.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="IOnSceneChangedListener.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexArray.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>ソース ファイル\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="TypingScene.h">
+      <Filter>ソース ファイル\Typing</Filter>
+    </ClInclude>
+    <ClInclude Include="RomajiTyper.h">
+      <Filter>ソース ファイル\Typing</Filter>
+    </ClInclude>
+    <ClInclude Include="ProblemSet.h">
+      <Filter>ソース ファイル\Typing</Filter>
+    </ClInclude>
+    <ClInclude Include="WordFilter.h">
+      <Filter>ソース ファイル\Typing</Filter>
+    </ClInclude>
+    <ClInclude Include="RankingScene.h">
+      <Filter>ソース ファイル\Ranking</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreBoard.h">
+      <Filter>ソース ファイル\Ranking</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>ソース ファイル\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>ソース ファイル\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>ソース ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>ソース ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Palette.h">
+      <Filter>ソース ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowIme.h">
+      <Filter>ソース ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>ソース ファイル\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>ソース ファイル\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\Sprite.vert">
+      <Filter>ソース ファイル\Shaders</Filter>
+    </None>
+    <None Include="Shaders\Sprite.frag">
+      <Filter>ソース ファイル\Shaders</Filter>
+    </None>
+    <None Include="Data\problems.txt">
+      <Filter>ソース ファイル\Data</Filter>
+    </None>
+    <None Include="Data\ng-words.txt">
+      <Filter>ソース ファイル\Data</Filter>
+    </None>
+  </ItemGroup>
+</Project>

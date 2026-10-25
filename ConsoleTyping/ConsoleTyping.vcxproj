@@ -132,5 +132,11 @@ xcopy "$(ProjectDir)Data\*.txt" "$(OutDir)" /D /Y</Command>
     <ClInclude Include="Texture.h" />
     <ClInclude Include="VertexArray.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\ng-words.txt" />
+    <None Include="Data\problems.txt" />
+    <None Include="Shaders\Sprite.frag" />
+    <None Include="Shaders\Sprite.vert" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
