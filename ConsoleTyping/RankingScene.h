@@ -36,7 +36,6 @@ private:
 
 	Text* mPrompt;
 	Text* mCommand;
-	Text* mSubtitle;
 	Text* mHeaderRank;
 	Text* mHeaderName;
 	Text* mHeaderChars;
@@ -44,6 +43,4 @@ private:
 	Text* mThisPlay;
 	Text* mEmpty;
 	Text* mRange;
-	Text* mNote;
-	Text* mFile;
 };

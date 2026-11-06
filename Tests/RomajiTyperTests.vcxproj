@@ -50,9 +50,11 @@
   <ItemGroup>
     <ClCompile Include="RomajiTyperTests.cpp" />
     <ClCompile Include="..\ConsoleTyping\RomajiTyper.cpp" />
+    <ClCompile Include="..\ConsoleTyping\CommandLine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ConsoleTyping\RomajiTyper.h" />
+    <ClInclude Include="..\ConsoleTyping\CommandLine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

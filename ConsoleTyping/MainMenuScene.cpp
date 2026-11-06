@@ -1,5 +1,6 @@
 #include "MainMenuScene.h"
 #include <cstdio>
+#include "CommandLine.h"
 #include "Font.h"
 #include "Keyboard.h"
 #include "Palette.h"
@@ -19,39 +20,11 @@ namespace
 	// コマンドに使える文字を scancode から作る。使えないキーは 0
 	char CommandChar(int scancode)
 	{
-		if (scancode >= SDL_SCANCODE_A && scancode <= SDL_SCANCODE_Z)
-		{
-			return static_cast<char>('a' + (scancode - SDL_SCANCODE_A));
-		}
-		if (scancode >= SDL_SCANCODE_1 && scancode <= SDL_SCANCODE_9)
-		{
-			return static_cast<char>('1' + (scancode - SDL_SCANCODE_1));
-		}
-		if (scancode == SDL_SCANCODE_0)
-		{
-			return '0';
-		}
-		if (scancode == SDL_SCANCODE_MINUS)
-		{
-			return '-';
-		}
 		if (scancode == SDL_SCANCODE_SPACE)
 		{
 			return ' ';
 		}
-		return 0;
-	}
-
-	// 前後の空白を除いた最初の単語
-	std::string FirstWord(const std::string& line)
-	{
-		const size_t begin = line.find_first_not_of(' ');
-		if (begin == std::string::npos)
-		{
-			return std::string();
-		}
-		const size_t end = line.find(' ', begin);
-		return line.substr(begin, end == std::string::npos ? std::string::npos : end - begin);
+		return Keyboard::ToChar(scancode);
 	}
 }
 
@@ -64,8 +37,6 @@ const MainMenuScene::Command MainMenuScene::sCommands[] = {
 MainMenuScene::MainMenuScene(IOnSceneChangedListener* impl, const Parameter& parameter, Game* game)
 :AbstractScene(impl, parameter, game)
 {
-	
-
 	mPrompt = AddText(u8"PS C:\\festival>", RowFontSize);
 	mInputText = AddText("", RowFontSize);
 	for (size_t i = 0; i < LogRows; i++)
@@ -74,7 +45,8 @@ MainMenuScene::MainMenuScene(IOnSceneChangedListener* impl, const Parameter& par
 	}
 
 	AddLog(LogKind::Hint, u8"help と入力して Enter を押すと、コマンド一覧を表示します");
-	RefreshTexts();
+	RefreshLogTexts();
+	RefreshInputText();
 }
 
 void MainMenuScene::AddLog(LogKind kind, const std::string& text)
@@ -82,16 +54,20 @@ void MainMenuScene::AddLog(LogKind kind, const std::string& text)
 	mLog.push_back({ kind, text });
 	if (mLog.size() > LogRows)
 	{
-		mLog.erase(mLog.begin());
+		mLog.pop_front();
 	}
 }
 
-void MainMenuScene::RefreshTexts()
+void MainMenuScene::RefreshLogTexts()
 {
 	for (size_t i = 0; i < mLogTexts.size(); i++)
 	{
 		mLogTexts[i]->SetText(i < mLog.size() ? mLog[i].text : std::string());
 	}
+}
+
+void MainMenuScene::RefreshInputText()
+{
 	mInputText->SetText(mInput);
 }
 
@@ -118,6 +94,7 @@ void MainMenuScene::update(float deltaTime)
 				continue;
 			}
 			Execute();
+			RefreshLogTexts();
 			changed = true;
 			break;
 		}
@@ -141,7 +118,7 @@ void MainMenuScene::update(float deltaTime)
 
 	if (changed)
 	{
-		RefreshTexts();
+		RefreshInputText();
 	}
 }
 
@@ -151,7 +128,7 @@ void MainMenuScene::Execute()
 	mInput.clear();
 	AddLog(LogKind::Command, line);
 
-	const std::string name = FirstWord(line);
+	const std::string name = CommandLine::FirstWord(line);
 	if (name.empty())
 	{
 		return;
@@ -221,7 +198,7 @@ void MainMenuScene::draw(Shader* shader) const
 	DrawText(shader, mPrompt, TextX, inputY, Palette::Green);
 	DrawText(shader, mInputText, inputX, inputY, Palette::TextBright);
 	const float cursorX = inputX + mFont->GetTextWidth(mInput, RowFontSize) + 2.0f;
-	DrawRect(shader, cursorX, inputY + 1.0f, 3.0f, 22.0f, Palette::Purple);
+	DrawRect(shader, cursorX, inputY + 1.0f, 3.0f, mPrompt->GetDrawHeight() - 2.0f, Palette::Purple);
 }
 
 EScene MainMenuScene::GetScene() const

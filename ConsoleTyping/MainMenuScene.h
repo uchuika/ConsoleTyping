@@ -1,5 +1,6 @@
 #pragma once
 
+#include <deque>
 #include "AbstractScene.h"
 
 // コマンドを打って操作するメインメニュー。実行した行と結果はログとして残り、
@@ -39,14 +40,15 @@ private:
 	static const Command sCommands[];
 
 	void AddLog(LogKind kind, const std::string& text);
-	void RefreshTexts();
+	void RefreshLogTexts();
+	void RefreshInputText();
 
 	void Execute();
 	void CmdHelp();
 	void CmdStart();
 	void CmdRank();
 
-	std::vector<LogLine> mLog;
+	std::deque<LogLine> mLog;
 	std::string mInput;
 
 	std::vector<Text*> mLogTexts;

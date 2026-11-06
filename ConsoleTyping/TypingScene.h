@@ -64,7 +64,6 @@ private:
 	// 画面に出すテキスト (変わったときだけ SetText で作り直す)
 	Text* mNameTitle;
 	Text* mNameField;
-	Text* mNameHint;
 	Text* mNameError;
 	Text* mCountdownDigits[3];
 	Text* mCountdownCaption;
@@ -85,9 +84,6 @@ private:
 	Text* mRomajiTyped;
 	Text* mRomajiRest;
 	Text* mPanelHint;
-	Text* mNextLabel;
-	Text* mNextText;
-	Text* mNextRomaji;
 	Text* mProgressLabel;
 	Text* mProgressValue;
 
