@@ -62,18 +62,13 @@ TypingScene::TypingScene(IOnSceneChangedListener* impl, const Parameter& paramet
 ,mShownSeconds(-1)
 ,mShownChars(-1)
 {
-	SetFrameInfo(u8"typing  ·  60s", {
-		{ u8"文字", u8"入力" },
-		{ u8"Esc", u8"やめる？" },
-		{ u8"Alt+Enter", u8"全画面 / ウィンドウ" },
-	});
+	SetFrameInfo(u8"typing  ·  60s", {});
 
 	mMonoCharWidth = mFont->GetTextWidth("M", RomajiSize);
 
 	// ニックネーム入力
 	mNameTitle = AddText(u8"ニックネームを入力してください", 26);
 	mNameField = AddText(mNickname, 30);
-	mNameHint = AddText(u8"英数字・_・- が使えます (12 文字まで)    Enter で決定    Esc でメニューへ", 15);
 	mNameError = AddText(u8"使えない言葉が含まれています。別の名前にしてください", 16);
 
 	// カウントダウン
@@ -99,9 +94,6 @@ TypingScene::TypingScene(IOnSceneChangedListener* impl, const Parameter& paramet
 	mRomajiTyped = AddText("", RomajiSize);
 	mRomajiRest = AddText("", RomajiSize);
 	mPanelHint = AddText(u8"誤キーでは進まない。Shift やキーリピートは無視。打ち切ると次の問題へ。", 14);
-	mNextLabel = AddText("next", 13);
-	mNextText = AddText("", 20);
-	mNextRomaji = AddText("", 15);
 	mProgressLabel = AddText("progress", 13);
 	mProgressValue = AddText("0s", 15);
 
@@ -241,12 +233,9 @@ void TypingScene::AdvanceProblem()
 {
 	mProblemIndex++;
 	const Problem& problem = ProblemSet::getIns()->At(mProblemIndex);
-	const Problem& next = ProblemSet::getIns()->At(mProblemIndex + 1);
 
 	mTyper.Reset(problem.reading);
 	mProblemText->SetText(problem.text);
-	mNextText->SetText(next.text);
-	mNextRomaji->SetText(RomajiTyper::ToRomaji(next.reading));
 	UpdateRomajiTexts();
 }
 
@@ -409,7 +398,6 @@ void TypingScene::DrawNameInput(Shader* shader) const
 	const float cursorX = 104.0f + mFont->GetTextWidth(mNickname, 30) + 2.0f;
 	DrawRect(shader, cursorX, 196.0f, 3.0f, 40.0f, Palette::Purple);
 
-	DrawText(shader, mNameHint, 80.0f, 268.0f, Palette::TextMute);
 	if (mNameRejected)
 	{
 		DrawText(shader, mNameError, 80.0f, 300.0f, Palette::Red);
@@ -464,11 +452,6 @@ void TypingScene::DrawPlaying(Shader* shader) const
 	DrawText(shader, mRomajiTyped, romajiX, romajiY, Palette::Lime);
 	DrawText(shader, mRomajiRest, romajiX + typedWidth, romajiY, Palette::TextDim);
 	DrawText(shader, mPanelHint, 84.0f, 352.0f, Palette::TextFaint);
-
-	// 次の問題
-	DrawText(shader, mNextLabel, 64.0f, 394.0f, Palette::TextDark);
-	DrawText(shader, mNextText, 128.0f, 386.0f, Palette::TextDark);
-	DrawText(shader, mNextRomaji, 128.0f, 416.0f, Palette::TextDark);
 
 	// 進み具合
 	DrawText(shader, mProgressLabel, 64.0f, 462.0f, Palette::TextFaint);

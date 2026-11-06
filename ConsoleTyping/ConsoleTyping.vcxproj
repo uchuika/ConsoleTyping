@@ -92,6 +92,7 @@ xcopy "$(ProjectDir)Data\*.txt" "$(OutDir)" /D /Y</Command>
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
+    <ClCompile Include="CommandLine.cpp" />
     <ClCompile Include="Parameter.cpp" />
     <ClCompile Include="RankingScene.cpp" />
     <ClCompile Include="Text.cpp" />
@@ -118,6 +119,7 @@ xcopy "$(ProjectDir)Data\*.txt" "$(OutDir)" /D /Y</Command>
     <ClInclude Include="IOnSceneChangedListener.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainMenuScene.h" />
+    <ClInclude Include="CommandLine.h" />
     <ClInclude Include="Palette.h" />
     <ClInclude Include="Parameter.h" />
     <ClInclude Include="RankingScene.h" />

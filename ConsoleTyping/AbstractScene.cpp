@@ -23,12 +23,7 @@ AbstractScene::AbstractScene(IOnSceneChangedListener* impl, const Parameter& par
 	mFrameTitle = AddText(u8"TYPE://TERMINAL", 18, true);
 	mFrameRight = nullptr;
 
-	SetFrameInfo(u8"文化祭展示  ·  local", {
-		{ u8"↑↓", u8"選択" },
-		{ u8"Enter", u8"決定" },
-		{ u8"Esc", u8"戻る" },
-		{ u8"Alt+Enter", u8"全画面 / ウィンドウ" },
-	});
+	SetFrameInfo(u8"", {});
 }
 
 void AbstractScene::SetFrameInfo(const std::string& rightLabel,

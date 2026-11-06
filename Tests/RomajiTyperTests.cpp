@@ -1,6 +1,7 @@
-// RomajiTyper の単体テスト。失敗した数を終了コードで返す。
+// RomajiTyper と CommandLine の単体テスト。失敗した数を終了コードで返す。
 #include <cstdio>
 #include <string>
+#include "../ConsoleTyping/CommandLine.h"
 #include "../ConsoleTyping/RomajiTyper.h"
 
 namespace
@@ -173,9 +174,16 @@ int main()
 		Check(RomajiTyper::ToRomaji(u8"こんぴゅーた") == "konpyu-ta", "ToRomaji");
 	}
 
+	// コマンド行の最初の単語
+	Check(CommandLine::FirstWord(" start ") == "start", "FirstWord surrounding spaces");
+	Check(CommandLine::FirstWord("") == "", "FirstWord empty");
+	Check(CommandLine::FirstWord("   ") == "", "FirstWord only spaces");
+	Check(CommandLine::FirstWord("rank x") == "rank", "FirstWord with argument");
+	Check(CommandLine::FirstWord("help") == "help", "FirstWord single word");
+
 	if (gFailures == 0)
 	{
-		std::printf("OK: all RomajiTyper tests passed\n");
+		std::printf("OK: all tests passed\n");
 	}
 	return gFailures;
 }

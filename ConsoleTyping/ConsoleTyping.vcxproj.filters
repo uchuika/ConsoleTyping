@@ -69,6 +69,9 @@
     <ClCompile Include="MainMenuScene.cpp">
       <Filter>ソース ファイル\MainMenu</Filter>
     </ClCompile>
+    <ClCompile Include="CommandLine.cpp">
+      <Filter>ソース ファイル\MainMenu</Filter>
+    </ClCompile>
     <ClCompile Include="TypingScene.cpp">
       <Filter>ソース ファイル\Typing</Filter>
     </ClCompile>
@@ -138,6 +141,9 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="MainMenuScene.h">
+      <Filter>ソース ファイル\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandLine.h">
       <Filter>ソース ファイル\MainMenu</Filter>
     </ClInclude>
     <ClInclude Include="TypingScene.h">
